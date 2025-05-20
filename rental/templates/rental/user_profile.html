@@ -1,0 +1,17 @@
+<!-- rental/templates/rental/user_profile.html -->
+{% extends 'rental/base.html' %}
+
+{% block content %}
+  <h2>Welcome, {{ profile.user.username }}!</h2>
+  <p><strong>Phone:</strong> {{ profile.phone }}</p>
+  <p><strong>Address:</strong> {{ profile.address }}</p>
+  <p><strong>Driver License:</strong> {{ profile.driver_license }}</p>
+
+  {% if profile.profile_picture %}
+  <img src="{{ profile.profile_picture.url }}" alt="Profile picture" style="max-width: 200px;">
+  {% else %}
+  <p>No profile picture.</p>
+  {% endif %}
+
+  <a href="{% url 'logout' %}">Log out</a>
+{% endblock %}

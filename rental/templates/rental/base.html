@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Car Rental{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav {
+            margin-top: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: #444;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Car Rental Service</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'car_list' %}">Cars</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'contact' %}">Contact</a>
+
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}!</span>
+                <!-- Profile Button -->
+                <form method="post" action="{% url 'profile' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: #444; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                        Profile
+                    </button>
+                </form>
+                
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: #444; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                        Logout
+                    </button>
+                </form>
+                
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Car Rental Co.</p>
+    </footer>
+</body>
+</html>

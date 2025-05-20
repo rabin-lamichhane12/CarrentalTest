@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Virtual environment
+env/
+venv/
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+*.db
+*.sqlite3
+
+# Static and media
+/staticfiles/
+/media/
+
+# VSCode and IDEs
+.vscode/
+.idea/
+
+# Node stuff (if applicable)
+node_modules/
+
+# Secret settings
+.env
+
+# macOS
+.DS_Store

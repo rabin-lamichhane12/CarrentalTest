@@ -1,0 +1,20 @@
+{% extends 'rental/base.html' %}
+
+{% block title %}Available Cars{% endblock %}
+
+{% block content %}
+<h2>Available Cars</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    {% for car in cars %}
+    <div style="border: 1px solid #ccc; padding: 10px; width: 220px;">
+        <h3>{{ car.name }}</h3>
+        <p>Type: {{ car.car_type }}</p>
+        <p>Price per day: Rs. {{ car.price_per_day }}</p>
+        {% if car.image %}
+            <img src="{{ car.image.url }}" alt="{{ car.name }}" style="width: 100%;">
+        {% endif %}
+        <a href="{% url 'book_car' car.id %}">Book Now</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

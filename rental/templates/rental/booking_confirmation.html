@@ -1,0 +1,13 @@
+<!-- templates/rental/booking_confirmation.html -->
+{% extends 'rental/base.html' %}
+
+{% block title %}Booking Confirmation{% endblock %}
+
+{% block content %}
+<h2>Booking Confirmation</h2>
+<p>Thank you for your booking!</p>
+<p>Car: {{ booking.car.name }}</p>
+<p>Start Date: {{ booking.start_date }}</p>
+<p>End Date: {{ booking.end_date }}</p>
+<p>Total Price: Rs. {{ booking.total_price }}</p>
+{% endblock %}

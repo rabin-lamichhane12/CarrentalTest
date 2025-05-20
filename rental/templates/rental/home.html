@@ -1,0 +1,23 @@
+{% extends 'rental/base.html' %}
+
+{% block title %}Home - Car Rental{% endblock %}
+
+{% block content %}
+<h1>Welcome to Our Car Rental Service</h1>
+<p>Browse, book, and drive. It’s that simple.</p>
+<h1 style="text-align:center;">Available Cars for Rent</h1>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+  {% for car in cars %}
+    <div style="border: 1px solid #ccc; padding: 20px; width: 300px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+      <h2>{{ car.name }}</h2>
+      <p><strong>Description:</strong> {{ car.description }}</p>
+      <p><strong>Price per day:</strong> ₹{{ car.price_per_day }}</p>
+      <a href="{% url 'book_car' car.id %}" style="background: green; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none;">Book Now</a>
+    </div>
+  {% empty %}
+    <p>No cars available at the moment.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
