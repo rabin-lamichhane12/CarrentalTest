@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from datetime import timedelta
+from django.db.models import Q
 
 
 def home(request):
@@ -21,6 +22,7 @@ def about(request):
 def contact(request):
     return render(request, 'rental/contact.html')
 
+@login_required
 def book_car(request, car_id):
     car = get_object_or_404(Car, id=car_id)
 
@@ -53,6 +55,11 @@ class CustomLoginView(LoginView):
         messages.error(self.request, "Invalid credentials. Please register if you don't have an account.")
         return redirect('register')  # This redirects failed login attempts to the register page
 
+def available_cars(start_date, end_date):
+    return Car.objects.exclude(
+        booking__start_date__lt = end_date,
+        booking__end_date__gt = start_date
+    )
 
 @login_required
 def user_profile(request):
