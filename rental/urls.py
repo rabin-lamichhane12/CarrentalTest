@@ -14,5 +14,5 @@ urlpatterns = [
     path('profile/', views.user_profile, name='profile'),   
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
-    path('register/', views.register, name='register'),  # make sure you already have this    
+    # path('register/', views.register, name='register'),  # make sure you already have this    
 ]
