@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Car, Booking, Profile
-from .forms import BookingForm
+from .forms import BookingForm, UserRegistrationForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from datetime import timedelta
 from django.db.models import Q
-
+from django.contrib.auth import login
 
 def home(request):
     cars = Car.objects.all
@@ -65,3 +65,27 @@ def available_cars(start_date, end_date):
 def user_profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     return render(request, 'rental/user_profile.html', {'profile': profile})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Auto login after registration
+            return redirect('home')  # change 'home' to your desired landing page
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+        else:
+            form = ProfileForm(instance=profile)
+            return render(request, 'rental/edit_profile.html', {'form': form})
+        

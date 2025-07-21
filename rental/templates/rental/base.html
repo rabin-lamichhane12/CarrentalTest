@@ -50,25 +50,19 @@
             <a href="{% url 'contact' %}">Contact</a>
 
             {% if user.is_authenticated %}
-                <span>Welcome, {{ user.username }}!</span>
-                <!-- Profile Button -->
-                <form method="post" action="{% url 'profile' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" style="background-color: #444; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
-                        Profile
-                    </button>
-                </form>
-                
-                <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" style="background-color: #444; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
-                        Logout
-                    </button>
-                </form>
-                
+                <a href="{% url 'user_profile' %}">Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Signup</a>
             {% endif %}
+            
+            {% if messages %}
+             {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+             {% endfor %}
+            {% endif %}
+
         </nav>
     </header>
 
