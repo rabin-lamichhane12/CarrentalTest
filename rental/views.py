@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from datetime import timedelta
 from django.db.models import Q
-from django.contrib.auth import login
+from django.contrib.auth import login , logout
 
 def home(request):
     cars = Car.objects.all
@@ -88,4 +88,7 @@ def edit_profile(request):
         else:
             form = ProfileForm(instance=profile)
             return render(request, 'rental/edit_profile.html', {'form': form})
-        
+
+def custom_logout_view(request):
+    logout(request)
+    return redirect('home')
