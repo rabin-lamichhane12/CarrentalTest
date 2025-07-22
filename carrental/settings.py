@@ -139,6 +139,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'  # This is the name of your login URL pattern
+
 
 #for development only
 Email_backend = 'django.core.mail.backends.console.EmailBackend'

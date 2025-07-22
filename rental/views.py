@@ -89,6 +89,7 @@ def edit_profile(request):
             form = ProfileForm(instance=profile)
             return render(request, 'rental/edit_profile.html', {'form': form})
 
+@login_required
 def custom_logout_view(request):
     logout(request)
     return redirect('home')
